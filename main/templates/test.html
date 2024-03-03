@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Statistics</title>
+    <link rel="stylesheet" href="static/css/map.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.heat/dist/leaflet-heat.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #map-container {
+    width: 80%;
+    height: 400px;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+#buttons-container {
+    text-align: center;
+    margin-top: 10px;
+}
+.crime-button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition-delay: 2ms;
+}
+.crime-button:hover{
+    background-color: red;
+    
+}
+#pie-chart-container{
+    width: 500px;
+    margin: auto;
+    display: block;
+    align-content: center;
+    margin-top: 100px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+#chart-container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+    background-color: white;
+    border-radius: 15px;
+}
+body{
+    background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #191654, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #191654, #000000);
+}
+    </style>
+</head>
+<body>
+    <div class="bg-nav text-light d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 ">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Crime Rate Predictor</h5>
+        <nav class="d-inline-flex my-2 my-md-0 mr-md-3 ms-md-auto text-light">
+            <a class="p-3 py-2 text-light" href="/">Home</a>
+            <a class="p-3 py-2 text-light" href="/home">News</a>
+        </nav>
+    </div>
+    
+    <H1 style="margin-left: auto; color: white;">Crime Heat Map</H1>
+<div id="buttons-container">
+    <button class="crime-button" onclick="changeCrimeType('Murder')">Murder</button>
+    <button class="crime-button" onclick="changeCrimeType('Assault')">Assault</button>
+    <button class="crime-button" onclick="changeCrimeType('Rape')">Rape</button>
+    <button class="crime-button" onclick="changeCrimeType('Theft')">Theft</button>
+    <button class="crime-button" onclick="changeCrimeType('All Crimes')">All Crimes</button>
+</div>
+
+<div id="container">
+    <div id="map-container"></div>
+    <div id="chart-container">
+        <canvas id="crimeChart"></canvas>
+    </div>
+    <div id="pie-chart-container">
+        <canvas id="pieChart" ></canvas>
+    </div>
+    
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+<script>
+    var map = L.map('map-container').setView([19.7515, 75.7139], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var heatLayer;
+    var crimeData = [
+    [19.0760, 72.8777,170,'Murder','Mumbai'],
+    [18.5204, 73.8567,75,'Murder','Pune'],
+    [21.1458, 79.0882,91,'Murder','Nagpur'],
+    [19.2183, 72.9781,41,'Murder','Thane'],
+    [20.5937, 73.7636,71,'Murder','Nashik'],
+    [19.8762, 75.3433,36,'Murder','Aurangabad'],
+    [17.6599, 75.9064,20,'Murder','Solapur'],
+    [20.9374, 77.7796,26,'Murder','Amravati'],
+    [19.0330, 73.0297,56,'Murder','Navi Mumbai'],
+    [16.7050, 74.2433,49,'Murder','Kolhapur'],
+    [20.7096, 77.0219,36,'Murder','Akola'],
+    [18.4088, 76.5604,58,'Murder','Latur'],
+    [21.1458, 75.8011,38,'Murder','Jalgaon'],
+    [16.9944, 73.3002,14,'Murder','Ratnagiri'],
+    [19.0946, 74.7384,78,'Murder','Ahmednagar'],
+    [19.9595, 79.2968,33,'Murder','Chandrapur'],
+    [17.6868, 74.0008,59,'Murder','Satara'],
+    [20.9016, 74.7774,27,'Murder','Dhule'],
+    [16.8524, 74.5815,60,'Murder','Sangli'],
+    [19.1383, 77.3206,58,'Murder','Nanded'],
+    [19.8390, 75.8824,38,'Murder','Jalna'],
+    [18.9894, 75.7541,58,'Murder','Beed'],
+    [20.5379, 76.1801,40,'Murder','Buldhana'],
+    [20.3888, 78.1204,59,'Murder','Yavatmal'],
+    [19.0760, 72.8777,2501,'Assault','Mumbai'],
+    [18.5204, 73.8567,1308,'Assault','Pune'],
+    [21.1458, 79.0882,222,'Assault','Nagpur'],
+    [19.2183, 72.9781,426,'Assault','Thane'],
+    [20.5937, 73.7636,161,'Assault','Nashik'],
+    [19.8762, 75.3433,95,'Assault','Aurangabad'],
+    [17.6599, 75.9064,325,'Assault','Solapur'],
+    [20.9374, 77.7796,175,'Assault','Amravati'],
+    [19.0330, 73.0297,185,'Assault','Navi Mumbai'],
+    [16.7050, 74.2433,2016,'Assault','Kolhapur'],
+    [20.7096, 77.0219,197,'Assault','Akola'],
+    [18.4088, 76.5604,145,'Assault','Latur'],
+    [21.1458, 75.8011,244,'Assault','Jalgaon'],
+    [16.9944, 73.3002,62,'Assault','Ratnagiri'],
+    [19.0946, 74.7384,78,'Assault','Ahmednagar'],
+    [19.9595, 79.2968,159,'Assault','Chandrapur'],
+    [17.6868, 74.0008,268,'Assault','Satara'],
+    [20.9016, 74.7774,104,'Assault','Dhule'],
+    [16.8524, 74.5815,214,'Assault','Sangli'],
+    [19.1383, 77.3206,167,'Assault','Nanded'],
+    [19.8390, 75.8824,709,'Assault','Jalna'],
+    [18.9894, 75.7541,420,'Assault','Beed'],
+    [20.5379, 76.1801,250,'Assault','Buldhana'],
+    [20.3888, 78.1204,258,'Assault','Yavatmal'],
+    [19.0760, 72.8777,396,'Rape','Mumbai'],
+    [18.5204, 73.8567,93,'Rape','Pune'],
+    [21.1458, 79.0882,115,'Rape','Nagpur'],
+    [19.2183, 72.9781,230,'Rape','Thane'],
+    [20.5937, 73.7636,25,'Rape','Nashik'],
+    [19.8762, 75.3433,943,'Rape','Aurangabad'],
+    [17.6599, 75.9064,46,'Rape','Solapur'],
+    [20.9374, 77.7796,38,'Rape','Amravati'],
+    [19.0330, 73.0297,70,'Rape','Navi Mumbai'],
+    [16.7050, 74.2433,662,'Rape','Kolhapur'],
+    [20.7096, 77.0219,31,'Rape','Akola'],
+    [18.4088, 76.5604,256,'Rape','Latur'],
+    [21.1458, 75.8011,37,'Rape','Jalgaon'],
+    [16.9944, 73.3002,11,'Rape','Ratnagiri'],
+    [19.0946, 74.7384,60,'Rape','Ahmednagar'],
+    [19.9595, 79.2968,330,'Rape','Chandrapur'],
+    [17.6868, 74.0008,152,'Rape','Satara'],
+    [20.9016, 74.7774,780,'Rape','Dhule'],
+    [16.8524, 74.5815,40,'Rape','Sangli'],
+    [19.1383, 77.3206,56,'Rape','Nanded'],
+    [19.8390, 75.8824,39,'Rape','Jalna'],
+    [18.9894, 75.7541,90,'Rape','Beed'],
+    [20.5379, 76.1801,40,'Rape','Buldhana'],
+    [20.3888, 78.1204,24,'Rape','Yavatmal'],
+    [19.0760, 72.8777,8585,'Theft','Mumbai'],
+    [18.5204, 73.8567,4501,'Theft','Pune'],
+    [21.1458, 79.0882,2408,'Theft','Nagpur'],
+    [19.2183, 72.9781,3048,'Theft','Thane'],
+    [20.5937, 73.7636,1209,'Theft','Nashik'],
+    [19.8762, 75.3433,1502,'Theft','Aurangabad'],
+    [17.6599, 75.9064,492 ,'Theft','Solapur'],
+    [20.9374, 77.7796,873 ,'Theft','Amravati'],
+    [19.0330, 73.0297,1624,'Theft','Navi Mumbai'],
+    [16.7050, 74.2433,1230,'Theft','Kolhapur'],
+    [20.7096, 77.0219,891 ,'Theft','Akola'],
+    [18.4088, 76.5604,616 ,'Theft','Latur'],
+    [21.1458, 75.8011,1257,'Theft','Jalgaon'],
+    [16.9944, 73.3002,367 ,'Theft','Ratnagiri'],
+    [19.0946, 74.7384,2938,'Theft','Ahmednagar'],
+    [19.9595, 79.2968,1764,'Theft','Chandrapur'],
+    [17.6868, 74.0008,1218,'Theft','Satara'],
+    [20.9016, 74.7774,662 ,'Theft','Dhule'],
+    [16.8524, 74.5815,1473,'Theft','Sangli'],
+    [19.1383, 77.3206,898 ,'Theft','Nanded'],
+    [19.8390, 75.8824,982 ,'Theft','Jalna'],
+    [18.9894, 75.7541,690 ,'Theft','Beed'],
+    [20.5379, 76.1801,897 ,'Theft','Buldhana'],
+    [20.3888, 78.1204,1063,'Theft','Yavatmal'],
+    [19.0760, 72.8777,11652,'All Crimes','Mumbai'],
+    [18.5204, 73.8567,5977,'All Crimes','Pune'],
+    [21.1458, 79.0882,2836,'All Crimes','Nagpur'],
+    [19.2183, 72.9781,3745,'All Crimes','Thane'],
+    [20.5937, 73.7636,1466,'All Crimes','Nashik'],
+    [19.8762, 75.3433,2576,'All Crimes','Aurangabad'],
+    [17.6599, 75.9064,883,'All Crimes','Solapur'],
+    [20.9374, 77.7796,1112,'All Crimes','Amravati'],
+    [19.0330, 73.0297,1935,'All Crimes','Navi Mumbai'],
+    [16.7050, 74.2433,3957,'All Crimes','Kolhapur'],
+    [20.7096, 77.0219,1155,'All Crimes','Akola'],
+    [18.4088, 76.5604,1075,'All Crimes','Latur'],
+    [21.1458, 75.8011,1576,'All Crimes','Jalgaon'],
+    [16.9944, 73.3002,454,'All Crimes','Ratnagiri'],
+    [19.0946, 74.7384,3154,'All Crimes','Ahmednagar'],
+    [19.9595, 79.2968,2286,'All Crimes','Chandrapur'],
+    [17.6868, 74.0008,1697,'All Crimes','Satara'],
+    [20.9016, 74.7774,1573,'All Crimes','Dhule'],
+    [16.8524, 74.5815,1787,'All Crimes','Sangli'],
+    [19.1383, 77.3206,1179,'All Crimes','Nanded'],
+    [19.8390, 75.8824,1768,'All Crimes','Jalna'],
+    [18.9894, 75.7541,1258,'All Crimes','Beed'],
+    [20.5379, 76.1801,1227,'All Crimes','Buldhana'],
+    [20.3888, 78.1204,1404,'All Crimes','Yavatmal'],
+    ];
+
+    function addHeatmap(crimeTypeFilter) {
+        if (heatLayer) {
+            map.removeLayer(heatLayer);
+        }
+
+        var filteredData = crimeTypeFilter
+            ? crimeData.filter(dataPoint => dataPoint[3] === crimeTypeFilter)
+            : crimeData;
+
+        var heatData = filteredData.map(dataPoint => [dataPoint[0], dataPoint[1], dataPoint[2]]);
+
+        heatLayer = L.heatLayer(heatData, {
+            radius: 35,
+            minOpacity:0.3,
+            blur: 20,
+            gradient: {
+                0.2: 'blue',
+                0.4: 'cyan',
+                0.6: 'yellow',
+                0.8: 'orange',
+                1: 'red'
+            }
+        }).addTo(map);
+
+        // Update the bar chart
+        updateBarChart(filteredData);
+            // Initial chart setup
+        updateChart(currentCrimeType);
+    }
+
+    function updateBarChart(data) {
+        var ctx = document.getElementById('crimeChart').getContext('2d');
+
+        var cityNames = data.map(dataPoint => dataPoint[4]);
+        var values = data.map(dataPoint => dataPoint[2]);
+        var crimeType = data[0][3];
+
+        if (window.myBarChart) {
+            window.myBarChart.destroy();
+        }
+
+        window.myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cityNames,
+                datasets: [{
+                    label: 'Crime Rate',
+                    data: values,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Crime Rate for ' + crimeType
+                    }
+                }
+            }
+        });
+    }
+    let currentCrimeType = 'All Crimes';
+    let myPieChart;
+
+    function updateChart(crimeType) {
+        currentCrimeType = crimeType;
+        const filteredData = crimeData.filter(item => item[3] === crimeType);
+        const labels = filteredData.map(item => item[4]); // Use city name as labels
+        const values = filteredData.map(item => item[2]);
+        const colors = values.map(() => '#' + (Math.random().toString(16) + '000000').slice(2, 8)); // Generate random colors
+
+        if (myPieChart) {
+            myPieChart.destroy();
+        }
+
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            }
+        });
+    }
+
+
+
+
+    function changeCrimeType(crimeType) {
+        addHeatmap(crimeType);
+    }
+
+    // Initial heatmap without any filter
+    addHeatmap('All Crimes');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changing News Box</title>
+    <style>
+        #newsBox {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #000;
+            padding: 20px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="newsBox">
+        <h2 id="newsTitle">News Title</a></h2>
+        <a id="newsContent"></a>
+        <img id="newsImage">News image here</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsBox = document.getElementById('newsBox');
+            const newsTitle = document.getElementById('newsTitle');
+            const newsContent = document.getElementById('newsContent');
+            const newsImage = document.getElementById('newsImage');
+            // Sample news articles
+            const newsArticles = [
+            {title: "Minor girl's mutilated body found in cane field in UP's Lakhimpur Kheri", link: 'https://www.indiatoday.in/crime/story/uttar-pradesh-teen-girl-beaten-to-death-her-mutilated-body-found-in-cane-field-2447534-2023-10-11', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/police-line-do-not-cross-113343598-16x9.jpg?VersionId=RozOaBcgB6miLfMac3Kmfvg4RVb3vAvs&size=690:388'},
+{title: 'UP girl kidnapped from village, raped for 2 months; rescued', link: 'https://www.indiatoday.in/crime/story/uttar-pradesh-minor-girl-kidnapped-raped-for-two-months-rescued-from-karnataka-2447528-2023-10-11', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/tripura-court-sentences-man-to-20-years-in-rigorous-imprisonment-for-minor-rape-case-11-062129566-1x1_0.jpg?VersionId=6raieYkqsW_on1W..pguLYWZqd3IQ0.u&size=115:115'},
+{title: 'Uttar Pradesh man bludgeoned to death by friend in dispute over mobile phone', link: 'https://www.indiatoday.in/crime/story/uttar-pradesh-meerut-man-kills-friend-over-mobile-phone-dispute-2447423-2023-10-11', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/crime-scene-140018887-1x1_2.jpg?VersionId=iqnC5ZvL1RvXRjW3EoMNt_YH4pfIeqZM&size=115:115'},
+{title: 'Rajasthan man pours acid on daughter-in-law over domestic dispute, case filed', link: 'https://www.indiatoday.in/crime/story/rajasthan-crime-hanumangarh-man-throws-acid-on-daughter-in-law-2447404-2023-10-11', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/woman-thrashedjpg-11-141314-1x1.jpg?VersionId=IS5VlM2hYhF.1qjLSIY_dLoe3jr5yIsM&size=115:115'},
+{title: "Dozens of mobile phones stolen during power cut at Gurugram's Sunburn Festival", link: 'https://www.indiatoday.in/india/story/gurugram-sunburn-music-festival-backyard-sports-club-mobile-theft-police-arrested-2447283-2023-10-11', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/sunburn-festival-114721705-16x9.png?VersionId=4UlgbpGA2PLV1pt_zRAuiPJkWEOVe60W&size=690:388'},
+{title: 'UP woman kills sisters, 7 and 4, after they find her in objectionable position', link: 'https://www.indiatoday.in/crime/story/sisters-murdered-throat-slit-shovel-elder-sister-up-etawah-2446808-2023-10-10', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/elder-sister-murder-103601723-1x1.png?VersionId=0EMpPFnZUHW_WyiuHzwrMfL7i2MsvM8A&size=115:115'},
+{title: '8-year-old girl gang raped, bludgeoned to death in Rajkot; 3 arrested', link: 'https://www.indiatoday.in/crime/story/girl-gang-raped-bludgeoned-to-death-rajkot-gujarat-2446630-2023-10-09', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/minor-rape-rep-051803401-1x1_1.jpg?VersionId=PHyxpQwOj6aeRlhvXXDJ2QHy2pMjvTi_&size=115:115'},
+{title: 'Denied money to buy alcohol, drunk man beats up seer in Kanpur, arrested', link: 'https://www.indiatoday.in/crime/story/uttar-pradesh-kanpur-police-arrest-man-for-beating-hindu-seer-2446279-2023-10-09', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/arrest-rep-075147644-1x1_0.jpg?VersionId=jrf7iUiqb_oic7Al2EKc_6Kzr5rbDBRY&size=115:115'},
+{title: 'Sisters, aged 5 and 7, hacked to death with shovel in UP’s Etawah', link: 'https://www.indiatoday.in/crime/story/sisters-murdered-throat-slit-shovel-in-up-etawah-2446499-2023-10-09', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/girls-killed-with-shovel-09492627-16x9.jpg?VersionId=mR9Qnj62AmYxqsmfEdoQ7aIRGsZB2IHp&size=690:388'},
+{title: 'On way to school, girl kidnapped and raped by father’s friends in Uttar Pradesh', link: 'https://www.indiatoday.in/crime/story/minor-girl-kidnap-rape-oyo-hotel-room-gangrape-father-friends-uttar-pradesh-hapur-school-2446398-2023-10-09', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/hapur-gangrape-092715243-1x1.jpg?VersionId=zzK1N.NoK97Dpcwx2hqG074xiWTMLIul&size=115:115'},
+{title: '7-year-old girl killed by relative for resisting molestation in Ghaziabad', link: 'https://www.indiatoday.in/crime/story/7-year-old-girl-killed-by-relative-for-resisting-molestation-in-ghaziabad-2446095-2023-10-08', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/crime-scene-08145880-1x1.jpg?VersionId=G3IVIRpdmGLNJ.jLGWpWDyU_RwVWVbrc&size=115:115'},
+{title: 'Uttar Pradesh man shoots friend dead over love triangle', link: 'https://www.indiatoday.in/crime/story/uttar-pradesh-aligarh-crime-man-shot-dead-by-friend-over-love-affair-with-same-woman-2445790-2023-10-07', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/ex-army-man-shoots-dead-brother-and-nephew-and-injured-his-daughter-025234-1x1.jpeg?VersionId=nZ_Xgx6LJ0MlJqcq57RJ2Gcueplixe1p&size=115:115'},
+{title: '2 brothers beaten to death for parking over disputed land in Kanpur', link: 'https://www.indiatoday.in/crime/story/kanpur-dehat-crime-two-brothers-beaten-to-death-land-dispute-2445783-2023-10-07', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/crime-scene-031722-16x9_1.png?VersionId=42XHJcrgNo8JGq8rjv3A6xrG3AKRuM5.&size=690:388'},
+{title: 'Elderly man rapes 5-year-old in Uttar Pradesh, kills\xa0self to evade arrest', link: 'https://www.indiatoday.in/crime/story/elderly-man-rapes-5-year-old-uttar-pradesh-kills-self-evade-arrest-2445753-2023-10-07', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/pep-293446483-1x1.jpg?VersionId=g49NsdxyHOcoQ.74rs31vi4DJrJEjJsz&size=115:115'},
+{title: '4 policemen arrested for sexually assaulting girl in Tamil Nadu', link: 'https://www.indiatoday.in/india/story/4-policemen-arrested-for-sexually-assaulting-girl-in-tamil-nadu-2445730-2023-10-07', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/arrest-photo-170516122-1x1.jpg?VersionId=wnOgoKVahyph31kvZ092jQ9IQrCpqLOO&size=115:115'},
+{title: 'Rajasthan horror: Drunk man rapes 5-year-old daughter in Jaisalmer, arrested', link: 'https://www.indiatoday.in/crime/story/rajasthan-police-arrests-man-for-rapes-5-year-old-daughter-in-jaisalmer-2445674-2023-10-07', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/minor-rape-rep-051803401-1x1_0.jpg?VersionId=NCZYv5vblTtAFUjsom8Can.1UHeBRgPD&size=115:115'},
+{title: 'Cops bust arms factory disguised as furniture shop in Bihar, arrest 2', link: 'https://www.indiatoday.in/crime/story/kolkata-police-bust-arms-factory-disguised-as-furniture-shop-in-bihar-arrest-2-2445484-2023-10-06', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/firearms-060115687-16x9.jpg?VersionId=lvhCNxZdLa.PRtv.tIVUiVaq1auoGJQU&size=690:388'},
+{title: 'Drunk man urinates on elderly couple onboard train in Uttar Pradesh', link: 'https://www.indiatoday.in/crime/story/drunk-man-urinates-on-elderly-couple-onboard-train-in-uttar-pradesh-2445522-2023-10-06', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/urination-incident-064510538-1x1.png?VersionId=E4sugFyWGa1R.i__s75oXmQ20PA5y6ua&size=115:115'},
+{title: "'Will pump 39 more bullets,' 2 Agra students brag after shooting at teacher", link: 'https://www.indiatoday.in/crime/story/agra-teacher-shot-at-by-2-minor-students-threatened-of-39-more-bullets-2445210-2023-10-06', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/agra-teacher-shot-dead-by-minor-students-064204781-1x1.png?VersionId=TneUhyclcOyCBRQ3NlnADHONC9AM2Ivz&size=115:115'},
+{title: 'Tamil Nadu: 4 cops sexually assault girl, suspended', link: 'https://www.indiatoday.in/crime/story/tamil-nadu-4-cops-sexually-abuse-minor-girl-suspended-2445036-2023-10-05', img: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/media_bank/202310/minor-rape-rep-051803401-1x1.jpg?VersionId=kFKJuYrIiE9wixJ.Qyb2aS7C0lzJfjMs&size=115:115'},
+
+                // Add more news articles as needed
+            ];
+
+            let currentIndex = 0;
+
+            function changeNews() {
+                const currentNews = newsArticles[currentIndex];
+                newsTitle.innerText = currentNews.title;
+                newsContent.innerText = currentNews.link;
+                newsImage.innerText = currentNews.img
+                currentIndex = (currentIndex + 1) % newsArticles.length;
+            }
+
+            // Change news every 5 seconds (5000 milliseconds)
+            setInterval(changeNews, 5000);
+
+            // Initial news
+            changeNews();
+        });
+    </script>
+
+</body>
+</html>

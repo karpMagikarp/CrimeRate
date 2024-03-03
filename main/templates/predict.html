@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crime Rate Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <style>
+      body{
+    background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #191654, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #191654, #000000);
+}
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      width: 400px;
+      margin: 0 auto; /* Center the card horizontally */
+    }
+    .label {
+      width: 50%; /* Adjust as needed */
+    }
+    .sel {
+      width: 50%; /* Adjust as needed */
+    }
+    .button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    </style>
+    <script>
+      window.onload = function () {
+    //Reference the DropDownList.
+    var year = document.getElementById("year-dropdown");
+
+    //Loop and add the Year values to DropDownList.
+    for (var i = 2000; i <= 2050; i++) {
+        var option = document.createElement("OPTION");
+        option.innerHTML = i;
+        option.value = i;
+        year.appendChild(option);
+    }
+};
+    </script>
+
+  </head>
+<body class="bg-nav">
+
+  <div class="bg-nav text-light d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom" style="background-color: #000000;">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Crime Rate Predictor</h5>
+  <nav class="d-inline-flex my-2 my-md-0 mr-md-3 ms-md-auto text-light">
+    <a class="p-3 py-2 text-light " href="/">Home</a>
+    <a class="p-3 py-2 text-light " href="/map">Map</a>
+  </nav>
+</div>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <form action="{{ url_for('result') }}" method="POST">
+        <div class="mb-3">
+          <!-- <img class="card-img-top" src="https://www.vecteezy.com/vector-art/5768349-investigator-search-a-clue-at-night" style="height: 50px; width: 100px;" alt="Card image cap"> -->
+          <label for="city" class="form-label">Select City Name</label>
+          <select class="form-select" name="city" id="city">
+            <option value="0">Mumbai</option>
+            <option value="1">Pune</option>
+            <option value="2">Thane</option>
+            <option value="3">Nagpur</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="crime" class="form-label">Select Crime Type</label>
+          <select class="form-select" name="crime" id="crime">
+            <option value="1">Criminal damage and arson</option>
+            <option value="2">Murder</option>
+            <option value="0">Rape</option>
+            <option value="3">Assualt</option>
+            <option value="4">Theft</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="year" class="form-label">Select Year</label>
+          <select class="form-select" name="year" id="year-dropdown"></select>
+        </div>
+        <div class="button">
+          <input type="submit" class="btn btn-primary" id="predict_button" value="Predict">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="static/main.js"></script>
+</body>
+</html>

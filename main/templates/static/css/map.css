@@ -1,0 +1,42 @@
+#map-container {
+    width: 80%;
+    height: 400px;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+#buttons-container {
+    text-align: center;
+    margin-top: 10px;
+}
+.crime-button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition-delay: 2ms;
+}
+.crime-button:hover{
+    background-color: red;
+    
+}
+#pie-chart-container{
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 15px;
+}
+
+#chart-container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+    background-color: white;
+    border-radius: 15px;
+}
+body{
+    background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #191654, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #191654, #000000);
+}

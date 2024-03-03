@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Heat Map</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Include Leaflet and Heatmap.js scripts -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    
+    <!-- Specify the map container's style -->
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // Create a Leaflet map and set its initial view
+        var map = L.map('map').setView([latitude, longitude], zoomLevel);
+
+        // Add a base layer (e.g., OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Sample heatmap data (replace with your own data)
+        var heatMapData = [
+            [latitude1, longitude1, intensity1],
+            [latitude2, longitude2, intensity2],
+            // Add more data points here
+        ];
+
+        // Create a heatmap layer using the heat plugin
+        var heat = L.heatLayer(heatMapData, {
+            radius: 25,    // Adjust the radius of the heatmap points
+            gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'} // Define color gradient
+        }).addTo(map);
+
+        // Add a legend for the heatmap (optional)
+        var legend = L.control({ position: 'bottomright' });
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.innerHTML = 'Legend'; // Customize the legend text
+            // You can customize the legend's HTML here
+            return div;
+        };
+        legend.addTo(map);
+
+    </script>
+</body>
+</html>

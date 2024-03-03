@@ -1,0 +1,146 @@
+state/ut,crime head,2018,2019,2020,2021
+Andhra Pradesh,murder,935,870,853,956
+ArunachalPradesh,murder,62,60,45,49
+Assam,murder,1241,1235,1131,1192
+Bihar,murder,2934,3138,3150,2799
+Chhattisgarh,murder,917,913,972,1007
+Goa,murder,29,33,34,26
+Gujarat,murder,1072,993,982,1010
+Haryana,murder,1104,1137,1143,1112
+Himachal Pradesh,murder,99,70,91,86
+Jammu & Kashmir,murder,181,119,1592,1573
+Jharkhand,murder,1712,1626,1331,1357
+Karnataka,murder,1334,1314,306,337
+Kerala,murder,292,323,2101,2034
+Madhya Pradesh,murder,1879,1795,2163,2330
+Maharashtra,murder,2199,2142,46,46
+Manipur,murder,52,56,79,80
+Meghalaya,murder,95,68,28,24
+Mizoram,murder,27,22,25,27
+Nagaland,murder,31,25,1470,1394
+Odisha,murder,1378,1356,757,723
+Punjab,murder,684,679,1719,1786
+Rajasthan,murder,1508,1659,11,14
+Sikkim,murder,12,17,1661,1686
+Tamil Nadu,murder,1569,1745,802,1026
+Telangana,murder,786,839,114,122
+Tripura,murder,137,144,3779,3717
+Uttar Pradesh,murder,4018,3806,160,208
+Uttarakhand,murder,211,199,178,192
+West Bengal,murder,1933,1933,1948,1884
+Andhra Pradesh,rape,971,1086,1095,1188
+ArunachalPradesh,rape,67,63,60,83
+Assam,rape,1648,1773,1657,1733
+Bihar,rape,651,730,806,786
+Chhattisgarh,rape,2091,1036,1210,1093
+Goa,rape,61,72,60,72
+Gujarat,rape,553,528,486,589
+Haryana,rape,1296,1480,1373,1716
+Himachal Pradesh,rape,344,359,331,358
+Jammu & Kashmir,rape,320,223,1321,1425
+Jharkhand,rape,1090,1416,504,555
+Karnataka,rape,492,505,637,771
+Kerala,rape,1945,2023,2339,2947
+Madhya Pradesh,rape,5433,2485,2061,2496
+Maharashtra,rape,2142,2299,32,26
+Manipur,rape,52,36,67,75
+Meghalaya,rape,87,102,33,26
+Mizoram,rape,50,42,4,4
+Nagaland,rape,10,8,1211,1456
+Odisha,rape,918,1382,502,464
+Punjab,rape,831,1002,5310,6337
+Rajasthan,rape,4335,5997,12,8
+Sikkim,rape,16,11,389,422
+Tamil Nadu,rape,331,362,764,823
+Telangana,rape,606,873,79,61
+Tripura,rape,97,88,2769,2845
+Uttar Pradesh,rape,3946,3065,487,534
+Uttarakhand,rape,561,526,550,539
+West Bengal,rape,1069,1069,1128,1123
+Andhra Pradesh,assualt on women,2327,2396,2541,2330
+ArunachalPradesh,assualt on women,78,55,61,57
+Assam,assualt on women,2149,2129,2487,2075
+Bihar,assualt on women,106,192,400,212
+Chhattisgarh,assualt on women,1311,1050,1187,1020
+Goa,assualt on women,63,47,26,25
+Gujarat,assualt on women,650,495,306,209
+Haryana,assualt on women,685,669,604,783
+Himachal Pradesh,assualt on women,194,186,232,192
+Jammu & Kashmir,assualt on women,1499,1385,758,769
+Jharkhand,assualt on women,936,923,3246,3379
+Karnataka,assualt on women,3395,3213,2353,2393
+Kerala,assualt on women,3164,3034,2832,2934
+Madhya Pradesh,assualt on women,4693,3115,4485,4578
+Maharashtra,assualt on women,4829,4528,53,67
+Manipur,assualt on women,34,39,50,52
+Meghalaya,assualt on women,62,51,15,10
+Mizoram,assualt on women,30,19,3,10
+Nagaland,assualt on women,4,8,7533,9431
+Odisha,assualt on women,5829,6774,357,297
+Punjab,assualt on women,447,510,6869,7309
+Rajasthan,assualt on women,4053,6977,9,13
+Sikkim,assualt on women,14,15,701,810
+Tamil Nadu,assualt on women,672,656,2520,2212
+Telangana,assualt on women,2212,2041,61,56
+Tripura,assualt on women,101,79,3836,3802
+Uttar Pradesh,assualt on women,4214,4625,455,551
+Uttarakhand,assualt on women,496,358,466,421
+West Bengal,assualt on women,1837,1837,1397,1342
+Andhra Pradesh,kidnapping,1055,902,737,835
+ArunachalPradesh,kidnapping,135,117,78,85
+Assam,kidnapping,8966,9432,6934,7580
+Bihar,kidnapping,9935,10707,7889,10198
+Chhattisgarh,kidnapping,2443,2638,2008,2681
+Goa,kidnapping,105,71,45,52
+Gujarat,kidnapping,1996,1813,1198,1621
+Haryana,kidnapping,5015,4023,2949,3554
+Himachal Pradesh,kidnapping,475,455,343,430
+Jammu & Kashmir,kidnapping,1137,961,902,1004
+Jharkhand,kidnapping,1741,1814,1564,1767
+Karnataka,kidnapping,3027,3080,2253,2879
+Kerala,kidnapping,297,386,307,364
+Madhya Pradesh,kidnapping,8596,9812,7320,9511
+Maharashtra,kidnapping,11443,11755,8103,10502
+Manipur,kidnapping,142,129,81,85
+Meghalaya,kidnapping,148,130,91,123
+Mizoram,kidnapping,3,5,3,2
+Nagaland,kidnapping,90,64,24,48
+Odisha,kidnapping,3972,4748,4179,5625
+Punjab,kidnapping,1599,1798,1399,1787
+Rajasthan,kidnapping,5809,8058,6234,7717
+Sikkim,kidnapping,74,51,32,39
+Tamil Nadu,kidnapping,1097,898,765,821
+Telangana,kidnapping,1810,2127,2056,2760
+Tripura,kidnapping,166,166,127,136
+Uttar Pradesh,kidnapping,21711,20989,12913,14554
+Uttarakhand,kidnapping,1177,967,768,819
+West Bengal,kidnapping,5191,5191,9309,8339
+Andhra Pradesh,motor theft,3910,3845,3546,5390
+ArunachalPradesh,motor theft,282,223,141,313
+Assam,motor theft,5221,4943,4005,4697
+Bihar,motor theft,18657,22012,20561,25606
+Chhattisgarh,motor theft,2746,3217,3053,4098
+Goa,motor theft,231,208,148,167
+Gujarat,motor theft,8312,7157,5613,6141
+Haryana,motor theft,18194,17618,14636,18322
+Himachal Pradesh,motor theft,365,230,144,225
+Jammu & Kashmir,motor theft,957,986,920,933
+Jharkhand,motor theft,5021,4923,4583,4971
+Karnataka,motor theft,9892,9062,7991,9815
+Kerala,motor theft,1143,1250,1020,1293
+Madhya Pradesh,motor theft,16036,16071,13101,16308
+Maharashtra,motor theft,24290,23606,21203,27740
+Manipur,motor theft,749,706,515,736
+Meghalaya,motor theft,162,177,151,170
+Mizoram,motor theft,119,229,119,175
+Nagaland,motor theft,268,210,272,279
+Odisha,motor theft,3151,3541,3439,4420
+Punjab,motor theft,2888,3282,3090,4338
+Rajasthan,motor theft,19206,25780,19063,22175
+Sikkim,motor theft,7,8,6,1
+Tamil Nadu,motor theft,5833,5127,5952,6718
+Telangana,motor theft,3122,3814,3820,6046
+Tripura,motor theft,176,231,148,152
+Uttar Pradesh,motor theft,31282,28417,19019,23044
+Uttarakhand,motor theft,942,925,573,963
+West Bengal,motor theft,3002,3002,2276,2765

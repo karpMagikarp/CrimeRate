@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pie Chart</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div>
+    <button onclick="updateChart('Murder')">Murder</button>
+    <button onclick="updateChart('Assault')">Assault</button>
+    <button onclick="updateChart('Rape')">Rape</button>
+    <button onclick="updateChart('Theft')">Theft</button>
+    <button onclick="updateChart('All Crimes')">All Crimes</button>
+</div>
+<canvas id="pieChart" width="400" height="400"></canvas>
+
+<script>
+    const crimeData =  [
+    [19.0760, 72.8777,170,'Murder','Mumbai'],
+    [18.5204, 73.8567,75,'Murder','Pune'],
+    [21.1458, 79.0882,91,'Murder','Nagpur'],
+    [19.2183, 72.9781,41,'Murder','Thane'],
+    [20.5937, 73.7636,71,'Murder','Nashik'],
+    [19.8762, 75.3433,36,'Murder','Aurangabad'],
+    [17.6599, 75.9064,20,'Murder','Solapur'],
+    [20.9374, 77.7796,26,'Murder','Amravati'],
+    [19.0330, 73.0297,56,'Murder','Navi Mumbai'],
+    [16.7050, 74.2433,49,'Murder','Kolhapur'],
+    [20.7096, 77.0219,36,'Murder','Akola'],
+    [18.4088, 76.5604,58,'Murder','Latur'],
+    [21.1458, 75.8011,38,'Murder','Jalgaon'],
+    [16.9944, 73.3002,14,'Murder','Ratnagiri'],
+    [19.0946, 74.7384,78,'Murder','Ahmednagar'],
+    [19.9595, 79.2968,33,'Murder','Chandrapur'],
+    [17.6868, 74.0008,59,'Murder','Satara'],
+    [20.9016, 74.7774,27,'Murder','Dhule'],
+    [16.8524, 74.5815,60,'Murder','Sangli'],
+    [19.1383, 77.3206,58,'Murder','Nanded'],
+    [19.8390, 75.8824,38,'Murder','Jalna'],
+    [18.9894, 75.7541,58,'Murder','Beed'],
+    [20.5379, 76.1801,40,'Murder','Buldhana'],
+    [20.3888, 78.1204,59,'Murder','Yavatmal'],
+    [19.0760, 72.8777,2501,'Assault','Mumbai'],
+    [18.5204, 73.8567,1308,'Assault','Pune'],
+    [21.1458, 79.0882,222,'Assault','Nagpur'],
+    [19.2183, 72.9781,426,'Assault','Thane'],
+    [20.5937, 73.7636,161,'Assault','Nashik'],
+    [19.8762, 75.3433,95,'Assault','Aurangabad'],
+    [17.6599, 75.9064,325,'Assault','Solapur'],
+    [20.9374, 77.7796,175,'Assault','Amravati'],
+    [19.0330, 73.0297,185,'Assault','Navi Mumbai'],
+    [16.7050, 74.2433,2016,'Assault','Kolhapur'],
+    [20.7096, 77.0219,197,'Assault','Akola'],
+    [18.4088, 76.5604,145,'Assault','Latur'],
+    [21.1458, 75.8011,244,'Assault','Jalgaon'],
+    [16.9944, 73.3002,62,'Assault','Ratnagiri'],
+    [19.0946, 74.7384,78,'Assault','Ahmednagar'],
+    [19.9595, 79.2968,159,'Assault','Chandrapur'],
+    [17.6868, 74.0008,268,'Assault','Satara'],
+    [20.9016, 74.7774,104,'Assault','Dhule'],
+    [16.8524, 74.5815,214,'Assault','Sangli'],
+    [19.1383, 77.3206,167,'Assault','Nanded'],
+    [19.8390, 75.8824,709,'Assault','Jalna'],
+    [18.9894, 75.7541,420,'Assault','Beed'],
+    [20.5379, 76.1801,250,'Assault','Buldhana'],
+    [20.3888, 78.1204,258,'Assault','Yavatmal'],
+    [19.0760, 72.8777,396,'Rape','Mumbai'],
+    [18.5204, 73.8567,93,'Rape','Pune'],
+    [21.1458, 79.0882,115,'Rape','Nagpur'],
+    [19.2183, 72.9781,230,'Rape','Thane'],
+    [20.5937, 73.7636,25,'Rape','Nashik'],
+    [19.8762, 75.3433,943,'Rape','Aurangabad'],
+    [17.6599, 75.9064,46,'Rape','Solapur'],
+    [20.9374, 77.7796,38,'Rape','Amravati'],
+    [19.0330, 73.0297,70,'Rape','Navi Mumbai'],
+    [16.7050, 74.2433,662,'Rape','Kolhapur'],
+    [20.7096, 77.0219,31,'Rape','Akola'],
+    [18.4088, 76.5604,256,'Rape','Latur'],
+    [21.1458, 75.8011,37,'Rape','Jalgaon'],
+    [16.9944, 73.3002,11,'Rape','Ratnagiri'],
+    [19.0946, 74.7384,60,'Rape','Ahmednagar'],
+    [19.9595, 79.2968,330,'Rape','Chandrapur'],
+    [17.6868, 74.0008,152,'Rape','Satara'],
+    [20.9016, 74.7774,780,'Rape','Dhule'],
+    [16.8524, 74.5815,40,'Rape','Sangli'],
+    [19.1383, 77.3206,56,'Rape','Nanded'],
+    [19.8390, 75.8824,39,'Rape','Jalna'],
+    [18.9894, 75.7541,90,'Rape','Beed'],
+    [20.5379, 76.1801,40,'Rape','Buldhana'],
+    [20.3888, 78.1204,24,'Rape','Yavatmal'],
+    [19.0760, 72.8777,8585,'Theft','Mumbai'],
+    [18.5204, 73.8567,4501,'Theft','Pune'],
+    [21.1458, 79.0882,2408,'Theft','Nagpur'],
+    [19.2183, 72.9781,3048,'Theft','Thane'],
+    [20.5937, 73.7636,1209,'Theft','Nashik'],
+    [19.8762, 75.3433,1502,'Theft','Aurangabad'],
+    [17.6599, 75.9064,492 ,'Theft','Solapur'],
+    [20.9374, 77.7796,873 ,'Theft','Amravati'],
+    [19.0330, 73.0297,1624,'Theft','Navi Mumbai'],
+    [16.7050, 74.2433,1230,'Theft','Kolhapur'],
+    [20.7096, 77.0219,891 ,'Theft','Akola'],
+    [18.4088, 76.5604,616 ,'Theft','Latur'],
+    [21.1458, 75.8011,1257,'Theft','Jalgaon'],
+    [16.9944, 73.3002,367 ,'Theft','Ratnagiri'],
+    [19.0946, 74.7384,2938,'Theft','Ahmednagar'],
+    [19.9595, 79.2968,1764,'Theft','Chandrapur'],
+    [17.6868, 74.0008,1218,'Theft','Satara'],
+    [20.9016, 74.7774,662 ,'Theft','Dhule'],
+    [16.8524, 74.5815,1473,'Theft','Sangli'],
+    [19.1383, 77.3206,898 ,'Theft','Nanded'],
+    [19.8390, 75.8824,982 ,'Theft','Jalna'],
+    [18.9894, 75.7541,690 ,'Theft','Beed'],
+    [20.5379, 76.1801,897 ,'Theft','Buldhana'],
+    [20.3888, 78.1204,1063,'Theft','Yavatmal'],
+    [19.0760, 72.8777,11652,'All Crimes','Mumbai'],
+    [18.5204, 73.8567,5977,'All Crimes','Pune'],
+    [21.1458, 79.0882,2836,'All Crimes','Nagpur'],
+    [19.2183, 72.9781,3745,'All Crimes','Thane'],
+    [20.5937, 73.7636,1466,'All Crimes','Nashik'],
+    [19.8762, 75.3433,2576,'All Crimes','Aurangabad'],
+    [17.6599, 75.9064,883,'All Crimes','Solapur'],
+    [20.9374, 77.7796,1112,'All Crimes','Amravati'],
+    [19.0330, 73.0297,1935,'All Crimes','Navi Mumbai'],
+    [16.7050, 74.2433,3957,'All Crimes','Kolhapur'],
+    [20.7096, 77.0219,1155,'All Crimes','Akola'],
+    [18.4088, 76.5604,1075,'All Crimes','Latur'],
+    [21.1458, 75.8011,1576,'All Crimes','Jalgaon'],
+    [16.9944, 73.3002,454,'All Crimes','Ratnagiri'],
+    [19.0946, 74.7384,3154,'All Crimes','Ahmednagar'],
+    [19.9595, 79.2968,2286,'All Crimes','Chandrapur'],
+    [17.6868, 74.0008,1697,'All Crimes','Satara'],
+    [20.9016, 74.7774,1573,'All Crimes','Dhule'],
+    [16.8524, 74.5815,1787,'All Crimes','Sangli'],
+    [19.1383, 77.3206,1179,'All Crimes','Nanded'],
+    [19.8390, 75.8824,1768,'All Crimes','Jalna'],
+    [18.9894, 75.7541,1258,'All Crimes','Beed'],
+    [20.5379, 76.1801,1227,'All Crimes','Buldhana'],
+    [20.3888, 78.1204,1404,'All Crimes','Yavatmal'],
+    ];
+
+    let currentCrimeType = 'All Crimes';
+    let myPieChart;
+
+    function updateChart(crimeType) {
+        currentCrimeType = crimeType;
+        const filteredData = crimeData.filter(item => item[3] === crimeType);
+        const labels = filteredData.map(item => item[4]); // Use city name as labels
+        const values = filteredData.map(item => item[2]);
+        const colors = values.map(() => '#' + (Math.random().toString(16) + '000000').slice(2, 8)); // Generate random colors
+
+        if (myPieChart) {
+            myPieChart.destroy();
+        }
+
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            }
+        });
+    }
+
+    // Initial chart setup
+    updateChart(currentCrimeType);
+</script>
+</body>
+</html>
